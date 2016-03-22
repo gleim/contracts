@@ -8,7 +8,7 @@ contract Session {
   event Refund(address _to, uint _amount);
   function Session() { // Constructor
     organizer = msg.sender;
-    quota = 1;
+    quota = 1000; // maximum participants
     numRegistrants = 0;
   }
   function buyTicket() public returns (bool success) { 
