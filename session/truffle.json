@@ -10,7 +10,7 @@
     "images/": "images/"
   },
   "deploy": [
-    "MetaCoin"
+    "Session"
   ],
   "rpc": {
     "host": "localhost",
