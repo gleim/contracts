@@ -9,7 +9,7 @@ contract('SplitPay', function(accounts) {
     var splitpay = SplitPay.at(SplitPay.deployed_address);
     SplitPay.new({ from: accounts[0] }).then(
       function(splitpay) {
-        splitpay.splitPayData.buyer.call().then(
+        splitpay.buyer.call().then(
           function(buyer) {
             assert.equal(buyer, accounts[0], "SplitPay initiator addresses don't match");
           }).then(done).catch(done);

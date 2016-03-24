@@ -21,27 +21,27 @@ contract SplitPay {
 
         // contract indexing for split-pay support: multiple payees
         mapping (uint => Payee) payees;
-
-        // currently only supporting single-buyer support:
-        //   if there exist multiple contributors/tippers, each will 
-        //   require their own interface to the split-pay contract
-        address buyer;
     }
 
     SplitPayData splitPayData;
+
+    // currently only supporting single-buyer support:
+    //   if there exist multiple contributors/tippers, each will 
+    //   require their own interface to the split-pay contract
+    address public buyer;
 
     // events are returned after functions are successfully called
     event onPayout(address indexed from, uint indexed lid, uint _value);
 
     function SplitPay() {
-        splitPayData.buyer = msg.sender;
+        buyer = msg.sender;
     }
 
     // current invariant: single buyer per SplitPay contract
     function addBuyer(address _buyerAddress)
     {
         // set the internal buyer 
-        splitPayData.buyer = _buyerAddress;
+        buyer = _buyerAddress;
     }
 
     function addPayee(address _payeeAddress, uint _payeePercentage, Actor _payeeType)
