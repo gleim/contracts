@@ -34,10 +34,10 @@ contract SplitPay {
         buyer = _buyerAddress;
     }
 
- function addPayee(address payeeAddress, uint payeePercentage, Actor payeeType)
+ function addPayee(address _payeeAddress, uint _payeePercentage, Actor _payeeType)
     {
         // add to the internal set of payees
-        payees[payeeAddress] = Payee(payeeAddress, payeePercentage, payeeType);
+        payees[_payeeAddress] = Payee(_payeeAddress, _payeePercentage, _payeeType);
     }
 
  function contribute(uint _lid)
