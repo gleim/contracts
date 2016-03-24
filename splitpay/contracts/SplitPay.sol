@@ -31,6 +31,10 @@ contract SplitPay {
     // events are returned after functions are successfully called
     event onPayout(address indexed from, uint indexed lid, uint _value);
 
+    function SplitPay() {
+        splitPayData.buyer = msg.sender
+    }
+
     // current invariant: single buyer per SplitPay contract
     function addBuyer(address _buyerAddress)
     {
