@@ -20,7 +20,7 @@ contract SplitPay {
         uint num_payees;
 
         // contract indexing for split-pay support: multiple payees
-        mapping(address => Payee) private payees;
+        mapping(uint => Payee) private payees;
 
         // currently only supporting single-buyer support:
         //   if there exist multiple contributors/tippers, each will 
@@ -69,4 +69,8 @@ contract SplitPay {
             suicide(msg.sender)
         }
     }
+
+    state:
+        SplitPayData splitPayData;
+        uint         numPayees;
 }
