@@ -10,17 +10,17 @@ contract SplitPay {
     // builds a variable (struct) called Payee which has two sub-variables, an address called payoutAddress and a uint called percentage     
     struct Payee
     {
-        address payoutAddress;
+        address payeeAddress;
         uint    percentage;
         Actor   payeeType;
     }
     
     struct SplitPayData {
         // number of payout recipients
-        uint num_payees;
+        uint numPayees;
 
         // contract indexing for split-pay support: multiple payees
-        mapping(uint => Payee) private payees;
+        mapping (uint => Payee) payees;
 
         // currently only supporting single-buyer support:
         //   if there exist multiple contributors/tippers, each will 
@@ -28,17 +28,18 @@ contract SplitPay {
         address buyer;
     }
 
+    SplitPayData splitPayData;
+
     // events are returned after functions are successfully called
     event onPayout(address indexed from, uint indexed lid, uint _value);
 
     function SplitPay() {
-        splitPayData.buyer = msg.sender
+        splitPayData.buyer = msg.sender;
     }
 
     // current invariant: single buyer per SplitPay contract
     function addBuyer(address _buyerAddress)
     {
-
         // set the internal buyer 
         splitPayData.buyer = _buyerAddress;
     }
@@ -46,31 +47,27 @@ contract SplitPay {
     function addPayee(address _payeeAddress, uint _payeePercentage, Actor _payeeType)
     {
         // add to an indexed internal set of payees
-        payees[numPayees] = Payee(_payeeAddress, _payeePercentage, _payeeType);
+        splitPayData.payees[splitPayData.numPayees] = Payee(_payeeAddress, _payeePercentage, _payeeType);
 
         // increment payee counter
-        numPayees++;
+        splitPayData.numPayees++;
     }
 
-    function payout(int _desiredPayoutAmount)
+    function payout(uint _desiredPayoutAmount)
     {
         // validate payee amount
-        int validatedPayoutAmount = 0;
+        uint validatedPayoutAmount = 0;
 
-        for (uint i = 0; i < numPayees; i++) {
-            validatedPayoutAmount += _desiredPayoutAmount * payees[i].percentage / 100 
+        for (uint i = 0; i < splitPayData.numPayees; i++) {
+            validatedPayoutAmount += _desiredPayoutAmount * splitPayData.payees[i].percentage / 100; 
         } 
 
         if (validatedPayoutAmount <= _desiredPayoutAmount) {
-            for (uint i = 0; i < numPayees; i++) {
-                payees[i].payeeAddress.send(msg.value * payees[i].percentage / 100) 
+            for (uint j = 0; j < splitPayData.numPayees; j++) {
+                splitPayData.payees[j].payeeAddress.send(msg.value * splitPayData.payees[j].percentage / 100); 
             } 
         } else {
-            suicide(msg.sender)
+            suicide(msg.sender);
         }
     }
-
-    state:
-        SplitPayData splitPayData;
-        uint         numPayees;
 }
