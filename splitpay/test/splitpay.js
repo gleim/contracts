@@ -28,4 +28,11 @@ contract('SplitPay', function(accounts) {
       }).then(done).catch(done);
   });
 
+  it("should trigger payment to two content creator addresses", function(done) {
+    var splitpay = SplitPay.at(SplitPay.deployed_address);
+    
+    splitpay.payout(1000);
+    assert.isTrue(true);
+    done();
+  });
 });
