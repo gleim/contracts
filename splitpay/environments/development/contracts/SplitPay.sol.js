@@ -29,11 +29,11 @@ var factory = function factory(Pudding) {
   SplitPay.abi = [{ "constant": false, "inputs": [{ "name": "_payeeAddress", "type": "address" }, { "name": "_payeePercentage", "type": "uint256" }, { "name": "_payeeType", "type": "uint8" }], "name": "addPayee", "outputs": [], "type": "function" }, { "constant": false, "inputs": [{ "name": "_buyerAddress", "type": "address" }], "name": "addBuyer", "outputs": [], "type": "function" }, { "constant": false, "inputs": [{ "name": "_desiredPayoutAmount", "type": "uint256" }], "name": "payout", "outputs": [], "type": "function" }, { "inputs": [], "type": "constructor" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "from", "type": "address" }, { "indexed": true, "name": "lid", "type": "uint256" }, { "indexed": false, "name": "_value", "type": "uint256" }], "name": "onPayout", "type": "event" }];
   SplitPay.binary = "606060405260028054600160a060020a03191633179055610185806100246000396000f3606060405260e060020a60003504639d75a9ad8114610031578063bbf898031461009f578063e1152343146100c5575b005b61002f60043560243560443560c060409081526060849052608083905260a082905260008054815260016020819052918120805473ffffffffffffffffffffffffffffffffffffffff191686178155808301859055600201805460ff19168417905580549091019055505050565b6002805473ffffffffffffffffffffffffffffffffffffffff191660043517905561002f565b61002f600435600080805b805482101561010057818152600160208190526040822001546064908502049290920191600191909101906100d0565b838311610166575b60005481101561017f5760008181526001602081905260408083208054920154905173ffffffffffffffffffffffffffffffffffffffff92909216929160643492909202919091049082818181858883f15050505050600101610108565b3373ffffffffffffffffffffffffffffffffffffffff16ff5b5050505056";
 
-  if ("" != "") {
-    SplitPay.address = "";
+  if ("0xc305c901078781c232a2a521c2af7980f8385ee9" != "") {
+    SplitPay.address = "0xc305c901078781c232a2a521c2af7980f8385ee9";
 
     // Backward compatibility; Deprecated.
-    SplitPay.deployed_address = "";
+    SplitPay.deployed_address = "0xc305c901078781c232a2a521c2af7980f8385ee9";
   }
 
   SplitPay.generated_with = "1.0.3";
