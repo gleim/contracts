@@ -16,4 +16,16 @@ contract('SplitPay', function(accounts) {
       }).catch(done);
   });
 
+  it("should add two content creator addresses", function(done) {
+    var splitpay = SplitPay.at(SplitPay.deployed_address);
+    
+    // magic numbers
+    // 50: fifty percent
+    // 0:  content creator
+    splitpay.addPayee( accounts[1], 50, 0 ).then(
+      function() {
+        splitpay.addPayee( accounts[2], 50, 0 );
+      }).then(done).catch(done);
+  });
+
 });

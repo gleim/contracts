@@ -12,7 +12,7 @@ contract SplitPay {
     {
         address payeeAddress;
         uint    percentage;
-        Actor   payeeType;
+        uint    payeeType;
     }
     
     struct SplitPayData {
@@ -44,7 +44,7 @@ contract SplitPay {
         buyer = _buyerAddress;
     }
 
-    function addPayee(address _payeeAddress, uint _payeePercentage, Actor _payeeType)
+    function addPayee(address _payeeAddress, uint _payeePercentage, uint _payeeType)
     {
         // add to an indexed internal set of payees
         splitPayData.payees[splitPayData.numPayees] = Payee(_payeeAddress, _payeePercentage, _payeeType);
