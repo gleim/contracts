@@ -31,23 +31,38 @@ contract SplitPay {
     // events are returned after functions are successfully called
     event onPayout(address indexed from, uint indexed lid, uint _value);
 
- function addBuyer(address _buyerAddress)
+    // current invariant: single buyer per SplitPay contract
+    function addBuyer(address _buyerAddress)
     {
+
         // set the internal buyer 
-        buyer = _buyerAddress;
+        splitPayData.buyer = _buyerAddress;
     }
 
- function addPayee(address _payeeAddress, uint _payeePercentage, Actor _payeeType)
+    function addPayee(address _payeeAddress, uint _payeePercentage, Actor _payeeType)
     {
-        // add to the internal set of payees
-        payees[_payeeAddress] = Payee(_payeeAddress, _payeePercentage, _payeeType);
+        // add to an indexed internal set of payees
+        payees[numPayees] = Payee(_payeeAddress, _payeePercentage, _payeeType);
+
+        // increment payee counter
+        numPayees++;
     }
 
- function payout(int _payoutAmount)
+    function payout(int _desiredPayoutAmount)
     {
-        // validate payee amount summation
+        // validate payee amount
         int validatedPayoutAmount = 0;
+
+        for (uint i = 0; i < numPayees; i++) {
+            validatedPayoutAmount += _desiredPayoutAmount * payees[i].percentage / 100 
+        } 
+
+        if (validatedPayoutAmount <= _desiredPayoutAmount) {
+            for (uint i = 0; i < numPayees; i++) {
+                payees[i].payeeAddress.send(msg.value * payees[i].percentage / 100) 
+            } 
+        } else {
+            suicide(msg.sender)
+        }
     }
-state:
-    SplitPayData splitPayData;
- }
+}
