@@ -15,18 +15,21 @@ contract SplitPay {
         Actor   payeeType;
     }
     
-    // contract indexing for split-pay support: multiple payees
-    mapping(address => Payee) private payees;
+    struct SplitPayData {
+        // number of payout recipients
+        uint num_payees;
 
-    // currently only supporting single-buyer support:
-    //   if there exist multiple contributors/tippers, each will 
-    //   require their own interface to the split-pay contract
-    address buyer;
+        // contract indexing for split-pay support: multiple payees
+        mapping(address => Payee) private payees;
+
+        // currently only supporting single-buyer support:
+        //   if there exist multiple contributors/tippers, each will 
+        //   require their own interface to the split-pay contract
+        address buyer;
+    }
 
     // events are returned after functions are successfully called
-    event onContribute(address indexed from, uint indexed lid, uint _value);
     event onPayout(address indexed from, uint indexed lid, uint _value);
-    event onRefund(address indexed from, uint indexed lid, uint _value);
 
  function addBuyer(address _buyerAddress)
     {
@@ -40,16 +43,11 @@ contract SplitPay {
         payees[_payeeAddress] = Payee(_payeeAddress, _payeePercentage, _payeeType);
     }
 
- function contribute(uint _lid)
+ function payout(int _payoutAmount)
     {
+        // validate payee amount summation
+        int validatedPayoutAmount = 0;
     }
-
- function refund(uint _lid)
-    {
-    }
-
- function payout(uint _lid)
-    {
-    }
-
+state:
+    SplitPayData splitPayData;
  }
