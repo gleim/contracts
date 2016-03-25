@@ -16,6 +16,26 @@ contract('SplitPay', function(accounts) {
       }).catch(done);
   });
 
+  it("should initialize a new SplitPay with a single content creator address and check that the initial variables are being set correctly", function(done) {
+    var splitpay = SplitPay.at(SplitPay.deployed_address);
+    SplitPay.new(accounts[1], { from: accounts[0] }).then(
+      function(splitpay) {
+        splitpay.buyer.call().then(
+          function(buyer) {
+            assert.equal(buyer, accounts[0], "SplitPay initiator addresses don't match");
+          }).then(done).catch(done);
+      }).then(
+      function() {
+        splitpay.numPayees.call().then(
+          function(numPayees) {
+            assert.equal(numPayees, 1, "numPayees is not equal to 1");
+          }).then(done).catch(done);
+      }).then(done).catch(done);
+      
+  });
+
+
+/*
   it("should add two content creator addresses", function(done) {
     var splitpay = SplitPay.at(SplitPay.deployed_address);
     
@@ -35,4 +55,6 @@ contract('SplitPay', function(accounts) {
     assert.isTrue(true);
     done();
   });
+*/
+
 });

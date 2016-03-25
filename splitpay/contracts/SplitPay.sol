@@ -15,15 +15,11 @@ contract SplitPay {
         uint    payeeType;
     }
     
-    struct SplitPayData {
-        // number of payout recipients
-        uint numPayees;
+    // contract indexing for split-pay support: multiple payees
+    mapping (uint => Payee) payees;
 
-        // contract indexing for split-pay support: multiple payees
-        mapping (uint => Payee) payees;
-    }
-
-    SplitPayData splitPayData;
+    // number of payout recipients
+    uint numPayees;
 
     // currently only supporting single-buyer support:
     //   if there exist multiple contributors/tippers, each will 
@@ -37,6 +33,16 @@ contract SplitPay {
         buyer = msg.sender;
     }
 
+    function SplitPay(address _payeeAddress) {
+        buyer = msg.sender;
+
+        // add to an indexed internal set of payees
+        payees[numPayees] = Payee(_payeeAddress, 100, 0);
+
+        // increment payee counter
+        numPayees++;
+    }
+
     // current invariant: single buyer per SplitPay contract
     function addBuyer(address _buyerAddress)
     {
@@ -47,10 +53,10 @@ contract SplitPay {
     function addPayee(address _payeeAddress, uint _payeePercentage, uint _payeeType)
     {
         // add to an indexed internal set of payees
-        splitPayData.payees[splitPayData.numPayees] = Payee(_payeeAddress, _payeePercentage, _payeeType);
+        payees[numPayees] = Payee(_payeeAddress, _payeePercentage, _payeeType);
 
         // increment payee counter
-        splitPayData.numPayees++;
+        numPayees++;
     }
 
     function payout(uint _desiredPayoutAmount)
@@ -58,13 +64,13 @@ contract SplitPay {
         // validate payee amount
         uint validatedPayoutAmount = 0;
 
-        for (uint i = 0; i < splitPayData.numPayees; i++) {
-            validatedPayoutAmount += _desiredPayoutAmount * splitPayData.payees[i].percentage / 100; 
+        for (uint i = 0; i < numPayees; i++) {
+            validatedPayoutAmount += _desiredPayoutAmount * payees[i].percentage / 100; 
         } 
 
         if (validatedPayoutAmount <= _desiredPayoutAmount) {
-            for (uint j = 0; j < splitPayData.numPayees; j++) {
-                splitPayData.payees[j].payeeAddress.send(msg.value * splitPayData.payees[j].percentage / 100); 
+            for (uint j = 0; j < numPayees; j++) {
+                payees[j].payeeAddress.send(msg.value * payees[j].percentage / 100); 
             } 
         } else {
             suicide(msg.sender);
