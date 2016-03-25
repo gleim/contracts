@@ -17,6 +17,14 @@ contract('SoloPay', function(accounts) {
           function(payer) {
             assert.equal(payee, accounts[1], "SoloPay payer addresses don't match");
           }).then(done).catch(done);
+        solopay.payerBeginningBalance.call().then(
+          function(payerBeginningBalance) {
+            process.stdout.write(payerBeginningBalance);
+          }).catch(done).then(
+        solopay.payee.call().then(
+          function(payeeBeginningBalance) {
+            process.stdout.write(payeeBeginningBalance);
+          }).then(done).catch(done);
       }).catch(done);
   });
 
