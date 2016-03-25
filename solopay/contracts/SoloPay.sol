@@ -9,11 +9,11 @@ contract SoloPay {
 
     uint value;
 
-    uint payerBeginningBalance;
-    uint payeeBeginningBalance;
+    uint public payerBeginningBalance;
+    uint public payeeBeginningBalance;
 
-    uint payerFinalBalance;
-    uint payeeFinalBalance;
+    uint public payerFinalBalance;
+    uint public payeeFinalBalance;
 
     function SoloPay(address _payeeAddress) {
       payer = msg.sender;
@@ -28,20 +28,4 @@ contract SoloPay {
       payerFinalBalance = payer.balance;
       payeeFinalBalance = payee.balance;
     }
-
-   function getPayerBeginningBalance() returns (uint) {
-     return payerBeginningBalance;
-   }
-
-   function getPayeeBeginningBalance() returns (uint) {
-     return payeeBeginningBalance;
-   }
-
-   function getPayerFinalBalance() returns (uint) {
-     return payerFinalBalance;
-   }
-
-   function getPayeeFinalBalance() returns (uint) {
-     return payeeFinalBalance;
-   }
 }
