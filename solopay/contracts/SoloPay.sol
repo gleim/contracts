@@ -28,4 +28,20 @@ contract SoloPay {
       payerFinalBalance = payer.balance;
       payeeFinalBalance = payee.balance;
     }
+
+   function getPayerBeginningBalance() returns (uint) {
+     return payerBeginningBalance;
+   }
+
+   function getPayeeBeginningBalance() returns (uint) {
+     return payeeBeginningBalance;
+   }
+
+   function getPayerFinalBalance() returns (uint) {
+     return payerFinalBalance;
+   }
+
+   function getPayeeFinalBalance() returns (uint) {
+     return payeeFinalBalance;
+   }
 }
