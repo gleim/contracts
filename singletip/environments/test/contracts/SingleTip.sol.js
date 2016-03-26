@@ -29,11 +29,11 @@ var factory = function factory(Pudding) {
   SingleTip.abi = [{ "constant": true, "inputs": [], "name": "tip", "outputs": [{ "name": "", "type": "uint256" }], "type": "function" }, { "constant": true, "inputs": [], "name": "initiator", "outputs": [{ "name": "", "type": "address" }], "type": "function" }, { "constant": true, "inputs": [], "name": "recipient", "outputs": [{ "name": "", "type": "address" }], "type": "function" }, { "constant": false, "inputs": [], "name": "transfer", "outputs": [{ "name": "", "type": "bool" }], "type": "function" }, { "inputs": [{ "name": "_recipient", "type": "address" }, { "name": "_tip", "type": "uint256" }], "type": "constructor" }];
   SingleTip.binary = "606060408181528061011b833960a09052516080516000805433600160a060020a03199182161782556002805490911690931790925560015560d590819061004690396000f3606060405260e060020a60003504632755cd2d811460385780635c39fcc114604057806366d003ac1460515780638a4068dd146062575b005b60b060015481565b60c2600054600160a060020a031681565b60c2600254600160a060020a031681565b60b06000600060016000505430600160a060020a031631111560ac57600254600160a060020a03908116908290301631606082818181858883f1945050505050801560ac57600191505b5090565b60408051918252519081900360200190f35b600160a060020a03166060908152602090f3";
 
-  if ("0xb2ceaebc95b63538d2b810f4f1d195403576ce6a" != "") {
-    SingleTip.address = "0xb2ceaebc95b63538d2b810f4f1d195403576ce6a";
+  if ("0x9697ecece5576753268fe32bd2d4f2aa1fd03305" != "") {
+    SingleTip.address = "0x9697ecece5576753268fe32bd2d4f2aa1fd03305";
 
     // Backward compatibility; Deprecated.
-    SingleTip.deployed_address = "0xb2ceaebc95b63538d2b810f4f1d195403576ce6a";
+    SingleTip.deployed_address = "0x9697ecece5576753268fe32bd2d4f2aa1fd03305";
   }
 
   SingleTip.generated_with = "1.0.3";
