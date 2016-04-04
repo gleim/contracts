@@ -19,7 +19,7 @@ contract SplitPay {
     mapping (uint => Payee) payees;
 
     // number of payout recipients
-    uint numPayees;
+    uint public numPayees = 0;
 
     // currently only supporting single-buyer support:
     //   if there exist multiple contributors/tippers, each will 
