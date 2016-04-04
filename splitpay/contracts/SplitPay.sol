@@ -33,16 +33,6 @@ contract SplitPay {
         buyer = msg.sender;
     }
 
-    function SplitPay(address _payeeAddress) {
-        buyer = msg.sender;
-
-        // add to an indexed internal set of payees
-        payees[numPayees] = Payee(_payeeAddress, 100, 0);
-
-        // increment payee counter
-        numPayees++;
-    }
-
     // current invariant: single buyer per SplitPay contract
     function addBuyer(address _buyerAddress)
     {
