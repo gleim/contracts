@@ -16,13 +16,24 @@ contract('SplitPay', function(accounts) {
       }).catch(done);
   });
 
-  it("should initialize a new SplitPay with a single content creator address and check that the initial variables are being set correctly", function(done) {
+  it("should initialize a new SplitPay with a single content creator address and check that the initial numPayees variable is being set correctly", function(done) {
     var splitpay = SplitPay.at(SplitPay.deployed_address);
     SplitPay.new({ from: accounts[0] }).then(
       function(splitpay) {
         splitpay.numPayees.call().then(
             function(numPayees) {
               assert.equal(numPayees, 0, "numPayees is not equal to 0");
+            }).then(done).catch(done);
+      }).catch(done);
+  });
+
+  it("should initialize a new SplitPay with a single content creator address and check that the initial buyer variable is being set correctly", function(done) {
+    var splitpay = SplitPay.at(SplitPay.deployed_address);
+    SplitPay.new({ from: accounts[0] }).then(
+      function(splitpay) {
+        splitpay.buyer.call().then(
+            function(buyer) {
+              assert.equal(buyer, accounts[0], "buyer is not initialized properly");
             }).then(done).catch(done);
       }).catch(done);
   });
