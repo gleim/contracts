@@ -1,4 +1,4 @@
-import "./DougBase.sol";
+import "DougBase";
 
 contract DefaultDougActionsTest is DaoTest {
 

@@ -1,7 +1,7 @@
 import "dao-stl/src/assertions/DaoTest.sol";
-import "dao-core/src/Doug.sol";
-import "dao-core/src/DefaultDoug.sol";
-import "dao-core/src/Permission.sol";
+import "Doug.sol";
+import "DefaultDoug.sol";
+import "Permission.sol";
 
 contract MockPermission is Permission, Errors {
 

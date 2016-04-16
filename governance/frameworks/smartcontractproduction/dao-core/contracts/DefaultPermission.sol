@@ -3,10 +3,10 @@
 
     Author: Andreas Olofsson (androlo1980@gmail.com)
 */
-import "dao-stl/src/errors/Errors.sol";
-import "dao-stl/src/contracts/Destructible.sol";
-import "./Permission.sol";
-import "./Doug.sol";
+import "dao-stl/src/errors/Errors";
+import "dao-stl/src/contracts/Destructible";
+import "Permission";
+import "Doug";
 
 /*
     Contract: DefaultPermission
@@ -256,7 +256,7 @@ contract DefaultPermission is Destructible, Permission, Errors {
     function destroy(address fundReceiver) {
         if (msg.sender == _root) {
             Destroy(fundReceiver, this.balance, NO_ERROR);
-            selfdestruct(fundReceiver);
+            destroy(fundReceiver);
         }
         else
             Destroy(fundReceiver, 0, ACCESS_DENIED);

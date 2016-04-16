@@ -3,7 +3,7 @@
 
     Author: Andreas Olofsson (androlo1980@gmail.com)
 */
-import "./Doug.sol";
+import "Doug";
 
 /*
     Contract: Database

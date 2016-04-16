@@ -3,9 +3,9 @@
 
     Author: Andreas Olofsson (androlo1980@gmail.com)
 */
-import "dao-stl/src/errors/Errors.sol";
-import "./Doug.sol";
-import "./Permission.sol";
+import "dao-stl/src/errors/Errors";
+import "Doug";
+import "Permission";
 
 /*
     Contract: DefaultDoug
@@ -403,7 +403,7 @@ contract DefaultDoug is Doug, Errors {
     function destroy(address fundReceiver) {
         if (msg.sender == _permission.root()) {
             Destroy(fundReceiver, this.balance, NO_ERROR);
-            selfdestruct(fundReceiver);
+            destroy(fundReceiver);
         }
         else
             Destroy(fundReceiver, 0, ACCESS_DENIED);

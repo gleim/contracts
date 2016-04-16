@@ -3,9 +3,9 @@
 
     Author: Andreas Olofsson (androlo1980@gmail.com)
 */
-import "./Permission.sol";
-import "dao-stl/src/errors/Errors.sol";
-import "dao-stl/src/contracts/Destructible.sol";
+import "Permission";
+import "dao-stl/src/errors/Errors";
+import "dao-stl/src/contracts/Destructible";
 
 /*
     Contract: DougEnabled
@@ -420,7 +420,7 @@ contract DefaultDougEnabled is DougEnabled, Errors {
     function destroy(address fundReceiver) {
         if (msg.sender == address(_DOUG)) {
             Destroy(fundReceiver, this.balance, NO_ERROR);
-            selfdestruct(fundReceiver);
+            destroy(fundReceiver);
         }
         else
             Destroy(fundReceiver, 0, ACCESS_DENIED);
