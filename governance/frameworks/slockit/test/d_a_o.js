@@ -4,7 +4,7 @@ contract('DAO_Creator', function(accounts) {
     assert.isTrue(true);
     done();
   });
-}
+});
 
 contract('DAO', function(accounts) {
   it("should validate that DAO contract is deployed and available", function(done) {
