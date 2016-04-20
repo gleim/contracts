@@ -1,8 +1,56 @@
+contract('DAO_Creator', function(accounts) {
+  it("should validate that DAO Creator utility contract is deployed and available", function(done) {
+    var daoCreator = DAO_Creator.at(DAO_Creator.deployed_address);
+    assert.isTrue(true);
+    done();
+  });
+}
+
 contract('DAO', function(accounts) {
-  it("should validate that DAO is deployed and available", function(done) {
+  it("should validate that DAO contract is deployed and available", function(done) {
     var dao = DAO.at(DAO.deployed_address);
     assert.isTrue(true);
     done();
+  });
+
+  /*
+  contract DAO_Creator {
+    function createDAO(
+        address _curator,
+        uint _proposalDeposit,
+        uint _minValue,
+        uint _closingTime
+    ) returns (DAO _newDAO) {
+
+        return new DAO(
+            _curator,
+            DAO_Creator(this),
+            _proposalDeposit,
+            _minValue,
+            _closingTime,
+            msg.sender
+        );
+    }
+  }
+  
+closting time 1461974400
+Is equivalent to:
+04/30/2016 @ 12:00am (UTC)
+  */
+
+  it("should initialize a new DAO via DAOCreator and check that the creator variable is being set correctly", function(done) {
+    var daoCreator = DAO_Creator.at(DAO_Creator.deployed_address);
+    daoCreator.createDao( accounts[0], //curator
+                          20,          // proposalDeposit: default value
+                          10000000,    // minimum value
+                          1461974400  // closing time
+                        ).then(
+      function(dao) {
+        dao.daoCreator.call().then(
+          function(creator) {
+            assert.equal(creator, accounts[0], "Dao creator addresses don't match");
+          }).then(done).catch(done);
+      }).catch(done);
   });
 
   it("should initialize a new DAO and check that the creator variable is being set correctly", function(done) {
