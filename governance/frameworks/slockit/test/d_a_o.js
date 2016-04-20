@@ -53,4 +53,4 @@ contract('DAO', function(accounts) {
           }).then(done).catch(done);
       }).then(done).catch(done);
   });
-
+});
