@@ -13,7 +13,7 @@ contract mortal {
 	}	
 }
 
-contract AlexContent {
+contract AlexContent is mortal {
 	modifier onlyowner { if (msg.sender == owner) _ }
 
 	address owner;
