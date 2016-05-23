@@ -5,8 +5,7 @@ contract AlexContent {
 	address owner;
 	string index;
 	string name;
-	uint8 view_price;
-	uint8 content_price;
+	uint8 price;
 	mapping (address => uint) balances;
 	mapping (address => bool) paid;
 
@@ -24,13 +23,8 @@ contract AlexContent {
 		return true;
 	}
 
-	function setViewPrice(uint _price) onlyowner returns(bool success) {
-		view_price = _price;
-		return true;
-	}
-
-	function setContentPrice(uint _price) onlyowner returns(bool success) {
-		content_price = _price;
+	function setPrice(uint _price) onlyowner returns(bool success) {
+		price = _price;
 		return true;
 	}
 
@@ -46,29 +40,12 @@ contract AlexContent {
 		return price;
 	}
 
-	function purchaseView() returns(bool success) {
-		if (balances[msg.sender] < view_price) return false;
-		balances[msg.sender] -= view_price;
-		balances[owner] += view_price;
+	function purchase() returns(bool success) {
+		if (balances[msg.sender] < price) return false;
+		balances[msg.sender] -= price;
+		balances[owner] += price;
 		paid[msg.sender] += true;
 		return true;
-	}
-
-	function purchaseContent() returns(bool success) {
-		if (balances[msg.sender] < content_price) return false;
-		balances[msg.sender] -= content_price;
-		balances[owner] += content_price;
-		paid[msg.sender] += true;
-		return true;
-	}
-
-	function viewPurchased() returns(bool purchased) {
-		if (paid[msg.sender]) {
-		    paid[msg.sender] = false;
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	function contentPurchased() returns(bool purchased) {
@@ -79,6 +56,7 @@ contract AlexContent {
 	}
 
 	function view() returns(bool success) {
-		return true;
+		if (paid[msg.sender]) 
+			return true;
 	}
 }
