@@ -1,3 +1,18 @@
+contract mortal {
+	address owner;
+
+	// executed at initialization and sets the owner of the contract
+	function mortal() {
+	    owner = msg.sender;
+	}	
+
+	// recover the funds on the contract
+	function kill() {
+	    if (msg.sender == owner)
+	    	suicide(owner);
+	}	
+}
+
 contract AlexContent {
 	modifier onlyowner { if (msg.sender == owner) _ }
 
