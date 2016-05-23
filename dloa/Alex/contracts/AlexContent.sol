@@ -4,7 +4,8 @@ contract AlexContent {
 
 	string index;
 	string name;
-	uint8 price;
+	uint8 view_price;
+	uint8 content_price;
 
 	function AlexContent() {
 
@@ -20,8 +21,13 @@ contract AlexContent {
 		return true;
 	}
 
-	function setPrice(uint _price) onlyowner returns(bool success) {
-		price = _price;
+	function setViewPrice(uint _price) onlyowner returns(bool success) {
+		view_price = _price;
+		return true;
+	}
+
+	function setContentPrice(uint _price) onlyowner returns(bool success) {
+		content_price = _price;
 		return true;
 	}
 
@@ -35,5 +41,25 @@ contract AlexContent {
 
 	function setPrice() returns(uint contentPrice) {
 		return price;
+	}
+
+	function purchaseView() returns(bool success) {
+		return true;
+	}
+
+	function purchaseContent() returns(bool success) {
+		return true;
+	}
+
+	function viewPurchased() returns(bool purchased) {
+		return true;
+	}
+
+	function contentPurchased() returns(bool purchased) {
+		return true;
+	}
+
+	function view() returns(bool success) {
+		return true;
 	}
 }
