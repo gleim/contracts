@@ -2,13 +2,16 @@ modifier onlyowner { if (msg.sender == owner) _ } }
 
 contract AlexContent {
 
+	address owner;
 	string index;
 	string name;
 	uint8 view_price;
 	uint8 content_price;
+	mapping (address => uint) balances;
+	mapping (address => bool) paid;
 
 	function AlexContent() {
-
+		owner = msg.sender;
 	}
 
 	function setIndex(string _index) onlyowner returns(bool success) {
@@ -44,19 +47,35 @@ contract AlexContent {
 	}
 
 	function purchaseView() returns(bool success) {
+		if (balances[msg.sender] < view_price) return false;
+		balances[msg.sender] -= view_price;
+		balances[owner] += view_price;
+		paid[msg.sender] += true;
 		return true;
 	}
 
 	function purchaseContent() returns(bool success) {
+		if (balances[msg.sender] < content_price) return false;
+		balances[msg.sender] -= content_price;
+		balances[owner] += content_price;
+		paid[msg.sender] += true;
 		return true;
 	}
 
 	function viewPurchased() returns(bool purchased) {
-		return true;
+		if (paid[msg.sender]) {
+		    paid[msg.sender] = false;
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	function contentPurchased() returns(bool purchased) {
-		return true;
+		if (paid[msg.sender]) 
+			return true;
+		else
+			return false;
 	}
 
 	function view() returns(bool success) {
