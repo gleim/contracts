@@ -1,11 +1,10 @@
-modifier onlyowner { if (msg.sender == owner) _ } }
-
 contract AlexContent {
+	modifier onlyowner { if (msg.sender == owner) _ }
 
 	address owner;
 	string index;
 	string name;
-	uint8 price;
+	uint price;
 	mapping (address => uint) balances;
 	mapping (address => bool) paid;
 
@@ -44,7 +43,7 @@ contract AlexContent {
 		if (balances[msg.sender] < price) return false;
 		balances[msg.sender] -= price;
 		balances[owner] += price;
-		paid[msg.sender] += true;
+		paid[msg.sender] = true;
 		return true;
 	}
 
