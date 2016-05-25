@@ -12,6 +12,10 @@ Start a geth node on a testnet:
 
     $ geth --rpccorsdomain "*" --rpc --networkid 8545 --minerthreads "1" --datadir <somePath>/testChain --mine
 
+    or:
+
+    $ geth --rpc --testnet --unlock 0,1,2 --rpcaddr="localhost" --rpcport="8545" --rpccorsdomain="http://127.0.0.1:3000" console 
+
 Add `--unlock <your account>` if you want to use your account to setNumbers in the contract.
 
 
